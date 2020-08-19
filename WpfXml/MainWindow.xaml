@@ -1,0 +1,76 @@
+﻿<Window x:Class="WpfXml.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:WpfXml.Controls"
+        xmlns:converter="clr-namespace:WpfXml.Converter"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="409" Width="543.5" >
+    <Window.Resources>
+        <converter:VisibilityConverter x:Key="boolConverter"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition  Width="Auto"/>
+            <ColumnDefinition/>
+            <ColumnDefinition  Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.ColumnSpan="3" Background="#F05A28" Orientation="Horizontal">
+            <Image Source="Images/logo.png" Width="50"/>
+            <TextBlock Text="{StaticResource Title}"
+                        Foreground="White"
+                        FontSize="30"
+                        FontWeight="ExtraBold"
+                       VerticalAlignment="Bottom"
+                       Margin="20"/>
+            <TextBlock Text='Version 1.0'
+                        Foreground="#333333"
+                       VerticalAlignment="Bottom"
+                       Margin="25"/>
+        </StackPanel>
+        <Grid x:Name="Control_pannel" Grid.Row="1" Background="#EEEEEE">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="add_btn" Margin="5" Click="Add_Button" Width="39">
+                    <Button.Content>
+                        <TextBlock Text="Add" VerticalAlignment="Center"
+                                Margin="1 0 0 0 "/>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="del_btn" Margin="5" Height="25" Click="Delete_Button">
+                    <TextBlock Text="Delete" VerticalAlignment="Center"
+                                Margin="1,0,0,0" Width="40" Height="26"/>
+                </Button>
+                <Button x:Name="nav_btn" Margin="5" Height="30" Click="Nav_Button">
+                    <TextBlock Text="Nav" VerticalAlignment="Center"
+                                Margin="1,0,0,0" Width="42" Height="20">
+                    </TextBlock>
+                </Button>
+            </StackPanel>
+            <ListBox  Grid.Row="1" x:Name="cust_list" Background="#EEEEEE" 
+                     SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}"
+                     ItemsSource="{Binding Path=Customers}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <TextBlock Text="{Binding FirstName}" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding LastName}" Margin="2 0 0 0"/>
+                            <TextBlock Text="(IsDeveloper)" Visibility="{Binding IsDeveloper, Converter={StaticResource boolConverter}}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+        <Controls:CustomerUserControl Grid.Row="1" Margin="5" Grid.Column="1"
+                                         Customer= "{Binding SelectedCustomer}"/>
+
+    </Grid>
+</Window>

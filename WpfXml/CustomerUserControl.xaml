@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="WpfXml.Controls.CustomerUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WpfXml.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" x:Name="Root">
+
+    <StackPanel>
+        <StackPanel  Margin="10" Orientation="Horizontal">
+            <TextBlock>First Name</TextBlock>
+            <TextBox Style="{StaticResource inputControlsStyle}" Text="{Binding ElementName=Root, Path=Customer.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         />
+        </StackPanel>
+        <StackPanel   Margin="10" Orientation="Horizontal">
+            <TextBlock>Last Name</TextBlock>
+            <TextBox Style="{StaticResource inputControlsStyle}"
+                    Text="{Binding ElementName=Root, Path=Customer.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+        <CheckBox Margin="10"   Content="IsDeveloper"
+                    IsChecked="{Binding ElementName=Root, Path=Customer.IsDeveloper, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+    </StackPanel>
+</UserControl>
